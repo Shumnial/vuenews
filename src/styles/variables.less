@@ -1,0 +1,49 @@
+// colors
+@color-white: #dee9ed;
+@color-green: #42b983;
+@color-primary: #42b983;
+@color-secondary: #FF5F43;
+@link-color: @color-primary;
+
+
+// base
+@base-font-face: 'ProximaNova', 'helveticaneuecyr', Helvetica, Arial, sans-serif;
+@base-font-size: 18px;
+@base-line-height: 1.32;
+@base-color: #2c3e50;
+@base-bg-color: transparent;
+@bg-gray: #202d32;
+
+// media query brakepoints
+@screen-xs:                        480px;
+@screen-xs-min:                    @screen-xs;
+@screen-phone:               			 @screen-xs-min;
+@screen-sm:                        768px;
+@screen-sm-min:                    @screen-sm;
+@screen-tablet:                    @screen-sm-min;
+@screen-md:                        992px;
+@screen-md-min:                    @screen-md;
+@screen-desktop:                   @screen-md-min;
+@screen-lg:                        1330px;
+@screen-lg-min:                    @screen-lg;
+@screen-lg-desktop:                @screen-lg-min;
+@screen-xl:                        1600px;
+@screen-xl-min:                    @screen-xl;
+@screen-xs-max:                    ( @screen-sm-min - 1 );
+@screen-sm-max:                    ( @screen-md-min - 1 );
+@screen-md-max:                    ( @screen-lg-min - 1 );
+@screen-lg-max:                    ( @screen-xl-min - 1 );
+
+// grid settings
+@grid-columns:              12;
+@grid-gutter-width:         30px;
+@grid-outer-margin:         20px;
+@grid-gutter-compensation: -@grid-gutter-width*0.5;
+@half-gutter-width: @grid-gutter-width*0.5;
+
+@container-tablet:             (720px + @grid-gutter-width);
+@container-sm:                 @container-tablet;
+@container-desktop:            (940px + @grid-gutter-width);
+@container-md:                 @container-desktop;
+@container-large-desktop:      (1280px + @grid-gutter-width);
+@container-lg:                 @container-large-desktop;

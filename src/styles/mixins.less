@@ -1,0 +1,11 @@
+@import "./mixins/gridMixin.less";
+@import "./mixins/fz.less";
+@import "./mixins/lh.less";
+@import "./mixins/remFz.less";
+
+.ThemedMarkedList(@name, @color) {
+  &.theme-@{name} &__item::before {
+    @escape-color: escape(@color);
+    background-image: url("data:image/svg+xml,%3Csvg width='11' height='13' viewBox='0 0 11 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 6.49997L0 13L3.82609 6.49997L0 -3.05176e-05L11 6.49997Z' fill='@{escape-color}'/%3E%3C/svg%3E");
+  }
+}
