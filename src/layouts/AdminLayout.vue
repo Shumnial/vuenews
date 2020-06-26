@@ -3,7 +3,6 @@
     <div class="admin-layout__header">
       <h2 class="admin-layout__header-title">Vuenews Admin panel</h2>
       <nav class="nav">
-        <router-link :to="{ name: 'adminHome' }">Home</router-link>
         <router-link :to="{ name: 'adminNews' }">News</router-link>
         <router-link :to="{ name: 'adminTags' }">Tags</router-link>
       </nav>
@@ -61,6 +60,10 @@ nav a {
 
 .router-link-exact-active {
   color: @color-green;
-  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    cursor: default;
+  }
 }
 </style>

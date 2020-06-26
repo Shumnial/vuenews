@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Welcome to administration panel</h2>
     <router-view :key="$route.path"></router-view>
     <admin-panel></admin-panel>
   </div>

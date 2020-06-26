@@ -1,38 +1,13 @@
 <template>
   <div class="news">
-    <div class="news-aside">
-      <div class="news__tags">
-        <template v-for="(item, idx) in tags">
-          <div class="news__tag" :key="`tags-item-${idx}`">
-            <label :for="`tags-item-${idx}`">{{ item.title }}</label>
-            <input
-              type="checkbox"
-              class="news__tag"
-              :value="item.id"
-              :id="`tags-item-${idx}`"
-              v-model="checkedTags"
-            />
-          </div>
-        </template>
-      </div>
-    </div>
     <div class="news__content">
-      <div class="news__list">
-        <a
-          href="#"
-          class="news__item news-card"
-          v-for="(item, idx) in filteredNews"
-          :key="`news-item-${idx}`"
-        >
-          <div
-            class="news-card__img"
-            :style="{ backgroundImage: `url(${item.img})` }"
-          ></div>
-          <div class="news-card__content">
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.description }}</p>
-          </div>
-        </a>
+      <div
+        class="news__img"
+        :style="{ backgroundImage: `url(${newsItem.img})` }"
+      ></div>
+      <div class="news__content">
+        <h2>{{ newsItem.title }}</h2>
+        <p>{{ newsItem.description }}</p>
       </div>
     </div>
   </div>
