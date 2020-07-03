@@ -21,10 +21,10 @@
         <th>Actions</th>
       </tr>
 
-      <template v-if="news.length">
+      <template v-if="news && news.length">
         <tr v-for="(item, idx) in news" :key="`news-item-${idx}`">
-          <td>{{ item.created }}</td>
-          <td>{{ item.lastUpdate }}</td>
+          <td>{{ new Date(item.created).toUTCString() }}</td>
+          <td>{{ new Date(item.lastUpdate).toUTCString() }}</td>
           <td>{{ item.isActive }}</td>
           <td>{{ item.isMain }}</td>
           <td><img :src="item.img" /></td>
@@ -57,7 +57,6 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
 export default {
   name: "AdminNews",
   components: {},
@@ -65,7 +64,12 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["news", "tags"]),
+    news() {
+      return this.$store.state.news;
+    },
+    tags() {
+      return this.$store.state.tags;
+    },
     exportJSON() {
       const file = new Blob([JSON.stringify(this.news, null, 2)], {
         type: "application/json"
@@ -75,7 +79,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["getNews", "getTags", "setNews"]),
+    getNews() {
+      return this.$store.dispatch("getNews");
+    },
+    getTags() {
+      return this.$store.dispatch("getTags");
+    },
     importJSON(evt) {
       const file = evt.target.files[0];
       const reader = new FileReader();
@@ -84,7 +93,7 @@ export default {
         const result = JSON.parse(reader.result);
         const agree = confirm("Are you sure?");
         if (!agree) return;
-        this.setNews(result);
+        this.$store.commit("SET_NEWS", result);
         evt.target.value = "";
       };
     }

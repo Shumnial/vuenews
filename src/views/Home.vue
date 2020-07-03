@@ -8,6 +8,7 @@
             <input
               type="checkbox"
               class="news__tag"
+              :name="item.id"
               :value="item.id"
               :id="`tags-item-${idx}`"
               v-model="checkedTags"
@@ -18,8 +19,9 @@
     </div>
     <div class="news__content">
       <div class="news__list">
-        <a
-          href="#"
+        <router-link
+          :to="{ name: 'newsItemPage', params: { id: item.id } }"
+          tag="a"
           class="news__item news-card"
           v-for="(item, idx) in filteredNews"
           :key="`news-item-${idx}`"
@@ -32,7 +34,7 @@
             <h2>{{ item.title }}</h2>
             <p>{{ item.description }}</p>
           </div>
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
@@ -41,39 +43,40 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      selectedTags: []
+      checkedTags: []
     };
   },
   computed: {
-    ...mapState(["tags"]),
-    ...mapGetters(["publishedNews"]),
-    checkedTags: {
-      get() {
-        return this.selectedTags;
-      },
-      set(value) {
-        console.log("VALUE", value);
-        this.selectedTags = value;
-      }
+    tags() {
+      return this.$store.state.tags;
+    },
+    publishedNews() {
+      return this.$store.getters.publishedNews;
     },
     filteredNews() {
       let result = this.publishedNews;
       console.log("TEST", this.publishedNews);
-      if (this.selectedTags.length) {
-        return;
+      if (this.checkedTags.length) {
+        return result.filter(item =>
+          item.tags.some(tag => this.checkedTags.includes(tag.id))
+        );
       }
       return result;
     }
   },
   methods: {
-    ...mapMutations(["getNews", "getTags"]),
+    getNews() {
+      return this.$store.dispatch("getNews");
+    },
+    getTags() {
+      return this.$store.dispatch("getTags");
+    },
     filterByTag(id) {
       return this.news.filter(el => el.tags.includes(id));
     }

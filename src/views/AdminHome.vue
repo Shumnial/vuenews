@@ -1,16 +1,12 @@
 <template>
   <div>
     <router-view :key="$route.path"></router-view>
-    <admin-panel></admin-panel>
   </div>
 </template>
 <script>
-import AdminPanel from "@/components/AdminPanel.vue";
 export default {
   name: "AdminHome",
-  components: {
-    AdminPanel
-  },
+  components: {},
   data() {
     return {};
   }

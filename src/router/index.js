@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import NewsItemPage from "../views/Home.vue";
+import NewsItemPage from "../views/NewsItemPage.vue";
 import AdminHome from "../views/AdminHome.vue";
 import AdminNews from "../views/AdminNews.vue";
 import AdminNewsEdit from "../views/AdminNewsEdit.vue";
@@ -14,17 +14,12 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
-    children: [
-      {
-        path: "/news/:id",
-        name: "newsPage",
-        component: NewsItemPage,
-        meta: {
-          layout: "AdminLayout"
-        }
-      }
-    ]
+    component: Home
+  },
+  {
+    path: "/news/:id",
+    name: "newsItemPage",
+    component: NewsItemPage
   },
   {
     path: "/admin",

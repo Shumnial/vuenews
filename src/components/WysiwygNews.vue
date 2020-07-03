@@ -196,7 +196,6 @@ export default {
 
 .editor {
   &__content {
-    min-height: 100px;
     padding: 10px;
     border: 2px solid lightgray;
     border-bottom-left-radius: 5px;
@@ -205,6 +204,8 @@ export default {
 }
 
 .ProseMirror {
+  min-height: 150px;
+
   h1 {
     .fz(32, 42);
   }
