@@ -88,7 +88,6 @@
 </template>
 <script>
 import WysiwygNews from "@/components/WysiwygNews.vue";
-import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "AdminNewsCreate",
   components: {
@@ -97,7 +96,7 @@ export default {
   data() {
     return {
       newsItem: {
-        isActive: false,
+        isActive: true,
         isMain: false,
         title: "",
         description: "",
@@ -109,11 +108,26 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tags"]),
-    ...mapGetters(["getNewsById"])
+    tags() {
+      return this.$store.state.tags;
+    },
+    newsById() {
+      return this.$store.getters.newsById;
+    }
   },
   methods: {
-    ...mapMutations(["getNews", "getTags", "saveNews", "deleteNews"]),
+    getNews() {
+      return this.$store.dispatch("getNews");
+    },
+    getTags() {
+      return this.$store.dispatch("getTags");
+    },
+    saveNews(item) {
+      return this.$store.dispatch("saveNews", item);
+    },
+    deleteNews(id) {
+      return this.$store.dispatch("deleteNews", id);
+    },
     saveNewsHandler(item) {
       const isNew = !item.id;
       this.saveNews(item);
@@ -125,18 +139,18 @@ export default {
       }
       alert("Success");
     },
-    deleteNewsHandler(item) {
+    deleteNewsHandler(id) {
       const agree = confirm("Are you sure?");
       if (!agree) return;
-      this.deleteNews(item);
-      this.$router.go("/");
+      this.deleteNews(id);
+      this.$router.go(-1);
     }
   },
   created: function() {
     this.getNews();
     this.getTags();
     const id = this.$route.params.id;
-    const data = this.getNewsById(id);
+    const data = this.newsById(id);
     if (data) {
       this.newsItem = { ...this.newsItem, ...data };
     }

@@ -8,6 +8,7 @@
             <input
               type="checkbox"
               class="news__tag"
+              :name="item.id"
               :value="item.id"
               :id="`tags-item-${idx}`"
               v-model="checkedTags"
@@ -41,39 +42,40 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      selectedTags: []
+      checkedTags: []
     };
   },
   computed: {
-    ...mapState(["tags"]),
-    ...mapGetters(["publishedNews"]),
-    checkedTags: {
-      get() {
-        return this.selectedTags;
-      },
-      set(value) {
-        console.log("VALUE", value);
-        this.selectedTags = value;
-      }
+    tags() {
+      return this.$store.state.tags;
+    },
+    publishedNews() {
+      return this.$store.getters.publishedNews;
     },
     filteredNews() {
       let result = this.publishedNews;
       console.log("TEST", this.publishedNews);
-      if (this.selectedTags.length) {
-        return;
+      if (this.checkedTags.length) {
+        return result.filter(item =>
+          item.tags.some(tag => this.checkedTags.includes(tag.id))
+        );
       }
       return result;
     }
   },
   methods: {
-    ...mapMutations(["getNews", "getTags"]),
+    getNews() {
+      return this.$store.dispatch("getNews");
+    },
+    getTags() {
+      return this.$store.dispatch("getTags");
+    },
     filterByTag(id) {
       return this.news.filter(el => el.tags.includes(id));
     }

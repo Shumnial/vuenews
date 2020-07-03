@@ -9,7 +9,7 @@
       <button>Add</button>
     </form>
 
-    <template v-if="tags.length">
+    <template v-if="tags && tags.length">
       <div class="tags">
         <div
           class="tags__item tag"
@@ -29,7 +29,6 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
 export default {
   name: "AdminTags",
   components: {},
@@ -40,9 +39,21 @@ export default {
       }
     };
   },
-  computed: mapState(["tags"]),
+  computed: {
+    tags() {
+      return this.$store.state.tags;
+    }
+  },
   methods: {
-    ...mapMutations(["getTags", "saveTag", "deleteTag"]),
+    getTags() {
+      return this.$store.dispatch("getTags");
+    },
+    saveTag(tag) {
+      return this.$store.dispatch("saveTag", tag);
+    },
+    deleteTag(id) {
+      return this.$store.dispatch("deleteTag", id);
+    },
     addTag(tag) {
       if (!tag.title.length) {
         return alert("Поле не может быть пустым");
