@@ -15,13 +15,21 @@
 </template>
 
 <script>
+// @ is an alias to /src
+// import HelloWorld from "@/components/HelloWorld.vue";
 export default {
   name: "NewsItemPage",
   components: {},
   data() {
-    return {};
+    return {
+      newsItem: {}
+    };
   },
-  computed: {},
+  computed: {
+    newsById() {
+      return this.$store.getters.newsById;
+    }
+  },
   methods: {
     getNews() {
       return this.$store.dispatch("getNews");
