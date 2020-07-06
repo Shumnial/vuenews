@@ -19,18 +19,15 @@ export default {
   name: "NewsItemPage",
   components: {},
   data() {
-    return {
-      newsItem: {}
-    };
+    return {};
   },
-  computed: {
-    newsById() {
-      return this.$store.getters.newsById;
-    }
-  },
+  computed: {},
   methods: {
     getNews() {
       return this.$store.dispatch("getNews");
+    },
+    getTags() {
+      return this.$store.dispatch("getTags");
     }
   },
   created: function() {
